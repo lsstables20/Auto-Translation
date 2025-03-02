@@ -27,14 +27,14 @@ class TranslationCommand extends Command
 
         // Ensure the 'en' directory exists
         $enLangPath = lang_path('en');
-        if (!File::exists($enLangPath)) {
+        if (! File::exists($enLangPath)) {
             File::makeDirectory($enLangPath, 0755, true);
             info('Created "en" language directory.');
         }
 
         // Ensure the 'en' directory exists
         $enLangPath = lang_path('en');
-        if (!File::exists($enLangPath)) {
+        if (! File::exists($enLangPath)) {
             File::makeDirectory($enLangPath, 0755, true);
             $this->info('Created "en" language directory.');
         }
@@ -44,6 +44,7 @@ class TranslationCommand extends Command
 
         if (empty($englishFiles)) {
             $this->warn('No translation files found in the "en" directory.');
+
             return;
         }
 
@@ -66,12 +67,12 @@ class TranslationCommand extends Command
                 }
 
                 // Ensure the target language directory exists
-                if (!File::exists(dirname($languageFilePath))) {
+                if (! File::exists(dirname($languageFilePath))) {
                     File::makeDirectory(dirname($languageFilePath), 0755, true);
                 }
 
                 // Write the translated translations to the language file
-                $content = "<?php\n\nreturn " . var_export($translatedTranslations, true) . ";\n";
+                $content = "<?php\n\nreturn ".var_export($translatedTranslations, true).";\n";
                 File::put($languageFilePath, $content);
 
                 $this->info("Created/updated translations for {$language}/{$group}.php");

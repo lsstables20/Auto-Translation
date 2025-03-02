@@ -4,7 +4,6 @@ namespace Twenty20\Translation\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\select;
@@ -50,7 +49,7 @@ class InstallCommand extends Command
 
         // Add new keys
         $envContents .= "\nTRANSLATION_SERVICE={$service}\n";
-        $envContents .= strtoupper($service) . "_API_KEY={$apiKey}\n";
+        $envContents .= strtoupper($service)."_API_KEY={$apiKey}\n";
 
         // Write the updated .env file
         File::put($envPath, $envContents);

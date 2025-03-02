@@ -3,10 +3,10 @@
 namespace Twenty20\Translation;
 
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Twenty20\Translation\Commands\InstallCommand;
 use Twenty20\Translation\Commands\TranslationCommand;
 use Twenty20\Translation\Services\TranslationService;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class TranslationServiceProvider extends PackageServiceProvider
 {
@@ -32,7 +32,8 @@ class TranslationServiceProvider extends PackageServiceProvider
     {
         $this->app->singleton(TranslationService::class, function ($app) {
             $service = config('translation-sync.default_service'); // e.g., 'google'
-            $apiKey = config('translation-sync.services.' . $service . '.api_key');
+            $apiKey = config('translation-sync.services.'.$service.'.api_key');
+
             return new TranslationService($service, $apiKey);
         });
     }

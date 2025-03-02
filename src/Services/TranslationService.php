@@ -2,18 +2,20 @@
 
 namespace Twenty20\Translation\Services;
 
-use GuzzleHttp\Client;
 use Exception;
+use GuzzleHttp\Client;
 
 class TranslationService
 {
     protected $client;
+
     protected $apiKey;
+
     protected $service;
 
     public function __construct($service, $apiKey)
     {
-        $this->client = new Client();
+        $this->client = new Client;
         $this->apiKey = $apiKey;
         $this->service = $service;
     }
@@ -46,6 +48,7 @@ class TranslationService
         ]);
 
         $data = json_decode($response->getBody(), true);
+
         return $data['data']['translations'][0]['translatedText'];
     }
 
@@ -53,7 +56,7 @@ class TranslationService
     {
         $response = $this->client->post('https://api.deepl.com/v2/translate', [
             'headers' => [
-                'Authorization' => 'DeepL-Auth-Key ' . $this->apiKey,
+                'Authorization' => 'DeepL-Auth-Key '.$this->apiKey,
             ],
             'json' => [
                 'text' => [$text],
@@ -63,6 +66,7 @@ class TranslationService
         ]);
 
         $data = json_decode($response->getBody(), true);
+
         return $data['translations'][0]['text'];
     }
 
@@ -70,7 +74,7 @@ class TranslationService
     {
         $response = $this->client->post('https://api.openai.com/v1/completions', [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->apiKey,
+                'Authorization' => 'Bearer '.$this->apiKey,
             ],
             'json' => [
                 'model' => 'text-davinci-003',
@@ -80,6 +84,7 @@ class TranslationService
         ]);
 
         $data = json_decode($response->getBody(), true);
+
         return $data['choices'][0]['text'];
     }
 }
